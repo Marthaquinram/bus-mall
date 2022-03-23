@@ -4,15 +4,16 @@
 }
 
 body{
-  background-color: purple;
+  background-color:rgb(211, 121, 223);
 }
 
 img{
   width:200px;
   height: 200px;
+  
 }
 
-main div {
+#show-results {
   padding: 10px;
   width: max-content;
   border: 2px solid black;
