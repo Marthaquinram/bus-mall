@@ -3,13 +3,15 @@
 
 }
 
+
+
 body{
-  background-color:rgb(211, 121, 223);
+  background-color: rgb(212, 161, 181);
 }
 
 img{
-  width:200px;
-  height: 200px;
+  width:300px;
+  height: 300px;
   
 }
 
@@ -19,4 +21,14 @@ img{
   border: 2px solid black;
   margin: auto;
   
+}
+#chart{
+  width: 80%;
+  margin:auto;
+}
+#container{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }
