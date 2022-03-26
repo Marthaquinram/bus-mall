@@ -41,33 +41,63 @@ function Product(name, fileExtension = 'jpeg') { //<--this file ext. is telling 
   this.src = `img/${name}.${fileExtension}`;//<-- this is the src of the image. itll know  its not the default its png.
   this.votes = 0;
   this.views = 0;
-  allProducts.push(this)
+  // allProducts.push(this)
+
 
 }
 
-//instantiate products
-new Product('bag');
-new Product('banana');
-new Product('bathroom');
-new Product('boots');
-new Product('breakfast');
-new Product('bubblegum');
-new Product('chair');
-new Product('cthulhu');
-new Product('dog-duck');
-new Product('dragon');
-new Product('pen');
-new Product('pet-sweep');
-new Product('scissors');
-new Product('shark');
-new Product('tauntaun');
-new Product('unicorn');
-new Product('water-can');
-new Product('wine-glass');
-new Product('sweep', 'png');
+// localStorage.names = JSON.stringify(names);
 
 
-console.log(allProducts);
+
+
+function instantiateProducts() {
+  //instantiate products
+  allProducts.push(new Product('banana'));
+  allProducts.push(new Product('bathroom'));
+  allProducts.push(new Product('boots'));
+  allProducts.push(new Product('breakfast'));
+  allProducts.push(new Product('bag'));
+  allProducts.push(new Product('bubblegum'));
+  allProducts.push(new Product('chair'));
+  allProducts.push(new Product('cthulhu'));
+  allProducts.push(new Product('dog-duck'));
+  allProducts.push(new Product('dragon'));
+  allProducts.push(new Product('pen'));
+  allProducts.push(new Product('pet-sweep'));
+  allProducts.push(new Product('scissors'));
+  allProducts.push(new Product('shark'));
+  allProducts.push(new Product('tauntaun'));
+  allProducts.push(new Product('unicorn'));
+  allProducts.push(new Product('water-can'));
+  allProducts.push(new Product('wine-glass'));
+  allProducts.push(new Product('sweep', 'png'));
+}
+
+
+getItemsFromStorage();
+
+function getItemsFromStorage() {
+  if (localStorage.getItem("allProducts")) {//looking at local storage to see if all products arry exist
+    let parseProducts = JSON.parse(localStorage.getItem("allProducts"))
+    console.log(parseProducts);
+    for (let i = 0; i < parseProducts.length; i++) {// if this returns a truthy then do below.
+      let constructedProduct = new Product(parseProducts[i].name, parseProducts[i].path);//constuctorproduct is an object, this
+      constructedProduct.votes = parseProducts[i].votes;
+      constructedProduct.views = parseProducts[i].views;
+      allProducts.push(constructedProduct)
+    }
+  } else {
+    instantiateProducts();
+  }
+
+}
+
+function saveStorage() {
+  let productArrayStringified = JSON.stringify(allProducts);
+  localStorage.setItem('allProducts', productArrayStringified);
+}
+
 
 
 
@@ -144,8 +174,9 @@ function handleResults() {
       li.textContent = `${allProducts[i].name} had ${allProducts[i].votes} votes, and was seen ${allProducts[i].views} times`; // this is giving text contents
       results.appendChild(li); // this is showing it on the webpage. but its not  working.
     }
+    saveStorage();
     showResults.removeEventListener('click', handleResults);
-  
+
   }
   renderChart();
 }
@@ -181,7 +212,7 @@ function renderChart() {
     names.push(product.name);//Im pushing products name in to the names array.
   }
   const ctx = document.getElementById('myChart').getContext('2d');
-  
+
   let config = {
     type: 'bar',
     data: {
@@ -199,7 +230,7 @@ function renderChart() {
         backgroundColor: 'rgba(280, 110, 106, 2)',
         borderColor: 'rgba(75, 192, 192, 3)',
         borderWidth: 1
-        
+
       }]
     },
     options: {
@@ -211,7 +242,7 @@ function renderChart() {
       //  responsive: true
     }
   };
-  
+
   const myChart = new Chart(ctx, config);
-  
+
 }
