@@ -78,24 +78,24 @@ function instantiateProducts() {
 getItemsFromStorage();
 
 function getItemsFromStorage() {
-  if (localStorage.getItem("allProducts")) {//looking at local storage to see if all products arry exist
-    let parseProducts = JSON.parse(localStorage.getItem("allProducts"))
+  if (localStorage.getItem("allProducts")) {//looking at local storage to see if all products arry exist, boolean, if oit finds all products then its gonna keep track of the views and votes.
+    let parseProducts = JSON.parse(localStorage.getItem("allProducts")) //if this is a truthy, this is saying after you locate it , return as an object.
     console.log(parseProducts);
     for (let i = 0; i < parseProducts.length; i++) {// if this returns a truthy then do below.
-      let constructedProduct = new Product(parseProducts[i].name, parseProducts[i].path);//constuctorproduct is an object, this
-      constructedProduct.votes = parseProducts[i].votes;
-      constructedProduct.views = parseProducts[i].views;
+      let constructedProduct = new Product(parseProducts[i].name, parseProducts[i].path);//constuctorproduct is an object, this will keep track of the name of the image and the path file ext.
+      constructedProduct.votes = parseProducts[i].votes;// pulling the votes that the user had and then run
+      constructedProduct.views = parseProducts[i].views;// images that show up on the screen.
       allProducts.push(constructedProduct)
     }
   } else {
-    instantiateProducts();
+    instantiateProducts();// if it cant find all products then its going to pull all the products.
   }
 
 }
 
 function saveStorage() {
-  let productArrayStringified = JSON.stringify(allProducts);
-  localStorage.setItem('allProducts', productArrayStringified);
+  let productArrayStringified = JSON.stringify(allProducts);//giving it an assigned name prodarray stringified and converting results back to a string,
+  localStorage.setItem('allProducts', productArrayStringified);//this is saving the localstorage, saving the snap shot / end results of the clicks made.
 }
 
 
